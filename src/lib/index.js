@@ -1,1 +1,4 @@
-// Reexport your entry components here
+import PricklyPear from "./PricklyPear.svelte"
+
+export { PricklyPear }
+export default PricklyPear
