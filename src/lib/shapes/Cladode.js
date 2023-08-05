@@ -1,4 +1,4 @@
-import { TAU, mod, clamp, radiansToDegrees, degreesToRadians, seededRandomUniform, seededRandomNormal, polarToCartesian, inchToPx } from "../helpers/math.js"
+import { clamp, radiansToDegrees, degreesToRadians, seededRandomUniform, seededRandomNormal, polarToCartesian, inchToPx } from "../helpers/math.js"
 import Branch from "./Branch.js"
 import BumpyShape from "./BumpyShape.js"
 import Tubercle from "./Tubercle.js"
@@ -90,13 +90,13 @@ class Cladode extends Branch {
 
   computeSurfaceTubercles() {
     const paper = this.paper
-    const { source, palette } = this.settings
+    const { source } = this.settings
     const { mainShape } = this
     const { bounds } = mainShape
 
     let tubercles = new paper.Group({ name: 'surfaceTubercles' })
 
-    let tubercleDensity = 0.06
+    let tubercleDensity = 0.08
 
     for (let i = 0; i < 400; i += 1) {
       let theta = i * degreesToRadians(137.5)
@@ -111,14 +111,15 @@ class Cladode extends Branch {
       ]
 
       let tubercle = new Tubercle(paper, {
-        center: new paper.Point([...point]),
+        center: new paper.Point(...point),
         size: mainShape.length * 0.01,
         source
       })
-      tubercle.remove()
-
+      
       if (mainShape.contains([...point]) && !tubercle.intersects(mainShape)) {
         tubercles.addChild(tubercle)
+      } else {
+        tubercle.remove()
       }
     }
 
