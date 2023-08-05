@@ -10,7 +10,7 @@ export default class PricklyPear {
     this.paper = paper
 
     this.settings = {...{
-      printDPI: 96,
+      printDPI: 50,
       printWidth: 12,
       printHeight: 12,
       bleedSize: 0.125,
@@ -67,7 +67,7 @@ export default class PricklyPear {
     const { group } = this
     const { source, printHeight, printDPI } = this.settings
     
-    let pricklyPearLSystem = new LSystem('P[-X][X][+X]', [
+    const pricklyPearLSystem = new LSystem('P[-X][X][+X]', [
       ['X', [
         'P[-X][+X]',
         'P[-X][+X]',
@@ -92,7 +92,7 @@ export default class PricklyPear {
       ]]
     ], source)
 
-    let interpreter = new PricklyPearLSystemInterpreter(paper, {
+    const interpreter = new PricklyPearLSystemInterpreter(paper, {
       startingSegmentLength: inchToPx(printHeight * 0.5, printDPI),
       printDPI,
       source
@@ -104,9 +104,24 @@ export default class PricklyPear {
       }
     })
 
-    let finalCladodes = pricklyPearLSystem.render(interpreter, 3).sort((a, b) => b.id - a.id)
+    let finalCladodes = [];
+    
+    const axiom = pricklyPearLSystem.computeAxiom(2).split('');
 
-    group.addChildren(finalCladodes.map(c => c.draw()))
+    paper.view.play()
+    group.onFrame = ({ count }) => {
+      const cladode = interpreter(axiom[count], axiom[count - 1], count)
+
+      if (cladode && finalCladodes.findIndex((finalCladode) => finalCladode.id === cladode.id) === -1) {
+        cladode.draw()
+        group.insertChild(0, cladode.group)
+        finalCladodes.push(cladode)
+      }
+
+      if (count > axiom.length) {
+        paper.view.pause()
+      }
+    }
   }
 
   render() {

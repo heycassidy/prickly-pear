@@ -151,14 +151,13 @@ export default class PricklyPearLSystemInterpreter {
 
       } else if (current === "P" && !!parent) {
         newCladode(iterationNumber)
-        
+
       } else if (current === "-") {
         rotateLeft()
-        
+
       } else if (current === "+") {
         rotateRight()
-        
-        
+
       } else if (current === "[") {
         saveState()
 
@@ -167,7 +166,7 @@ export default class PricklyPearLSystemInterpreter {
 
       }
 
-      return this.cladodes
+      return this.lastCladode
     }.bind(this)
   }
 }

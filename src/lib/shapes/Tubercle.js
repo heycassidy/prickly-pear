@@ -19,7 +19,7 @@ export default class Tubercle {
   distortCircle(circle) {
     const { source } = this.settings
 
-    let subdivisionAmount = 2
+    let subdivisionAmount = 1
     let curves = circle.curves
 
     // Subdivide
