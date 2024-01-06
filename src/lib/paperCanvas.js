@@ -1,5 +1,6 @@
 
-import { paper } from 'paper';
+import paperPkg from 'paper';
+const { paper } = paperPkg;
 // import PricklyPear from './sketches/prickly-pear.js'
 import { alea } from 'seedrandom';
 

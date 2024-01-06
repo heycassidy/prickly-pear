@@ -1,7 +1,8 @@
-import { paper } from 'paper';
-import pkg from 'seedrandom';
+import paperPkg from 'paper';
+import seedrandomPkg from 'seedrandom';
 import PricklyPearDrawing from './prickly-pear.js';
-const { alea } = pkg;
+const { paper } = paperPkg;
+const { alea } = seedrandomPkg;
 
 function generateCactus(node, userSettings) {
   let prng = new alea(Math.random());

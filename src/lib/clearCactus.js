@@ -1,4 +1,5 @@
-import { paper } from 'paper';
+import paperPkg from 'paper';
+const { paper } = paperPkg;
 
 function clearCactus() {
   if (paper.project) {
